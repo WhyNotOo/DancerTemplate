@@ -1,0 +1,30 @@
+/*
+ * Header style
+ */
+#container > * {
+	width:100%;
+}
+
+#main {
+	position:absolute;
+	top:50px;
+	bottom:50px;
+	left:0;
+	background:#909;
+}
+
+#main > * {
+	height:100%;
+}
+
+#content {
+	width:75%;
+	float:left;
+	background:#999;
+}
+
+.widget-area {
+	width:25%;
+	float:right;
+	background:#333;
+}

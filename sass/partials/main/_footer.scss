@@ -1,10 +1,10 @@
-// Footer style
-// Sample footer style
-// =================================================================================
-
 /*
  * Footer style
  */
 .site-footer {
-	display: block;
+	position:absolute;
+	bottom:0;
+	left:0;
+	height:50px;
+	background:#090;
 }

@@ -22,7 +22,7 @@ javascripts_dir = "js"
 
 # You can select your preferred output style here (can be overridden via the command line):
 # output option: nested, expanded, compact, compressed
-output_style = :expanded
+output_style = :compressed
 
 # The environment mode.
 # Defaults to :production, can also be :development
