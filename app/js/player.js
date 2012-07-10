@@ -1,9 +1,11 @@
 (function () {
 
   var
+    options           = Joshfire.factory.config.template.options || {},
+    songs             = Joshfire.factory.getDataSource("songs"),
     PATH_TO_FILES     = 'songs/',
     AUDIO_FILE        = ['song', 'song2'],
-    PARTICLE_COUNT    = 25,
+    PARTICLE_COUNT    = options.particules,
     MAX_PARTICLE_SIZE = 12,
     MIN_PARTICLE_SIZE = 2,
     GROWTH_RATE       = 5,
@@ -23,6 +25,33 @@
     flashSWF : 'js/vendors/soundmanager2.swf',
     flashJS  : 'js/vendors/soundmanager2.js'
   });
+
+  songs.find({}, function (err, data) {
+    if(err) {
+      console.log('erreur : '+err);
+    } else {
+        //var song = data;
+
+        console.log(data);
+
+        // $('header h1').html(app.scores.children[0].name);
+
+        // $('#content .content').prepend(userTable);
+
+        // if(app.options.entriesrange && app.options.entriesrange < user.length) {
+        //   for(var i=0, len = app.options.entriesrange; i<len; i++) {
+        //     var date = app.getScoreDate(user.dateCreated);
+        //     $('#content .content .table').append('<tr><td>'+(i+1)+'</td><td>'+user[i].familyName+'</td><td>'+user[i].givenName+'</td><td>'+user[i].nationality.name+'</td><td>'+date+'</td><td class="score">'+user[i]['quiz:score']+'</td></tr>');
+        //   }
+        // } else {
+        //   for(var i=0, len = user.length; i<len; i++) {
+        //     var date = app.getScoreDate(user[i].dateCreated);
+        //     $('#content .content .table').append('<tr><td>'+(i+1)+'</td><td>'+user[i].familyName+'</td><td>'+user[i].givenName+'</td><td>'+user[i].nationality.name+'</td><td>'+date+'</td><td class="score">'+user[i]['quiz:score']+'</td></tr>');
+        //   }
+        // }
+    }
+  });
+
 
   /*
    * Three.js Setup
@@ -104,15 +133,15 @@
 
   function newParticleMat( color ) {
     var
-      // sprites = [ 'pink', 'orange', 'yellow', 'blue', 'green' ],
-      sprites = ['1', '2', '3'],
-      sprite = color || sprites[ ~~( Math.random() * 3 )];
+      sprites = [ 'pink', 'orange', 'yellow', 'blue', 'green' ],
+      //sprites = ['1', '2', '3'],
+      sprite = color || sprites[ ~~( Math.random() * 5 )];
 
     return new THREE.ParticleBasicMaterial({
       blending: THREE.AdditiveBlending,
       size: MIN_PARTICLE_SIZE,
-      //map: THREE.ImageUtils.loadTexture('img/particle_' + sprite + '.png'),
-      map: THREE.ImageUtils.loadTexture('img/animal_' + sprite + '.gif'),
+      map: THREE.ImageUtils.loadTexture('img/particle_' + sprite + '.png'),
+      // map: THREE.ImageUtils.loadTexture('img/animal_' + sprite + '.gif'),
       vertexColor: 0xFFFFFF
     });
   }

@@ -50,7 +50,7 @@
       "songs": {
         "title": "List of songs",
         "description": "Songs from Soundcloud",
-        "multiple": false
+        "multiple": true
       }
     },
 
