@@ -1,0 +1,84 @@
+{
+  "name": "dancer",
+  "version": "1.0",
+  "fullName": "Dancer",
+  "description": "Play songs with particule visualisation !",
+  "keywords": [
+    "music",
+    "dancer",
+    "particules"
+  ],
+  "contributors": [
+    {
+      "name": "Albessard",
+      "email": "k.albessard@gmail.com",
+      "web": "http://www.kevin-albessard.com"
+    }
+  ],
+  "maintainers": [
+    {
+      "name": "JoshFire Factory",
+      "email": "contact@joshfire.com",
+      "web": "http://www.joshfire.com"
+    }
+  ],
+  "joshfire": {
+    "images": {
+      "small":"marketing/leaderboard-small.png",
+      "big":"marketing/leaderboard-big.png"
+    },
+    "premium": false,
+    "devices": [
+      {
+        "devices": [
+          "tablet",
+          "desktop",
+          "tv"
+        ],
+        "startfile": "app/index.html",
+        "orientation": "auto",
+        "images": "marketing/leaderboard-big.png",
+        "screenshots": [
+          "marketing/screen1.png",
+          "marketing/screen2.png"
+        ],
+        "disablePreview": false
+      }
+    ],
+
+    "datasources": {
+      "songs": {
+        "title": "List of songs",
+        "description": "Songs from Soundcloud",
+        "multiple": false
+      }
+    },
+
+    "options": {
+      "schema": {
+        "language": {
+          "title": "Language",
+          "type": "string",
+          "enum": [
+            "English",
+            "French"
+          ],
+          "default": "English"
+        },
+        "particules": {
+          "type": "string",
+          "title": "Number of particules",
+          "description": "A number between 10 and 300"
+        }
+      },
+
+      "form": [
+        "datasources.scores",
+        {
+          "key": "particules",
+          "description": "Number of particules to display. Number between 10 and 300"
+        }
+      ]
+    }
+  }
+}

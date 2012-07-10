@@ -1,0 +1,26 @@
+/*
+ * Footer style
+ */
+#footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height:50px;
+  width:100%;
+  background-color: #111;
+  line-height:50px;
+}
+
+#footer span {
+  color: #ccc;
+  font-size: 14px;
+  margin: 0 10px 0 2%;
+  padding: 0;
+  float:left;
+}
+
+#footer #songname {
+	color:#eee;
+	font-size:20px;
+	margin:0;
+}

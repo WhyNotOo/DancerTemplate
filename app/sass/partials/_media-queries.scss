@@ -1,0 +1,52 @@
+// Media Queries
+// media queries syntax
+// pros @Aris_FM
+// =================================================================================
+
+/* iPad & Tablets*/
+@media screen and (min-width: 768px) and (max-width: 959px) {}
+
+/* Tablets Portrait & Big Smartphone Landscape */
+@media screen and (min-width: 600px) and (max-width: 767px) {}
+
+/* Smartphone Landscape */
+@media screen and (min-width: 480px) and (max-width: 599px) {}
+
+/* Smartphone */
+@media screen and (min-width: 320px) and (max-width: 479px) {}
+
+/* Featured Phone (rarely used since featured phone often doesn't support CSS3) */
+@media screen and (max-width: 319px) {}
+
+
+@mixin responsive($media) {
+	@if $media == ipad {
+		@media screen and (max-width:959px) { @content; }
+	}
+	@else if $media == tablet {
+		@media screen and (max-width:767px) { @content; }
+	}
+	@else if $media == smartphone {
+		@media screen and (max-width:599px) { @content; }
+	}
+	@else if $media == phone {
+		@media screen and (max-width:479px) { @content; }
+	}
+}
+
+//	How To Use It:
+//	.foo {
+//		float: left;
+//		width: 1000px;
+//
+//		@include responsive(ipad) {
+//			float: none;
+//			width: 600px;
+//		}
+//		@include responsive(tablet) {
+//			width: 480px;
+//		}
+//		@include responsive(smartphone) {
+//			width: 280px;
+//		}
+//	}
