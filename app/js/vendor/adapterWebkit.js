@@ -30,7 +30,7 @@
 
       console.log('path : '+path);
 
-      req.open( 'GET', path, true );
+      req.open( 'GET', 'http://storage2.newjamendo.com/tracks/318689_96.mp3', true );
       req.responseType = 'arraybuffer';
 
       req.onload = function () {
