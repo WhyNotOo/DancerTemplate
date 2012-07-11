@@ -28,15 +28,12 @@
         req = new XMLHttpRequest(),
         _this = this;
 
-      req.open( 'GET', 'http://storage1.newjamendo.com/tracks/318689_96.mp3', true );
+      console.log('path : '+path);
+
+      req.open( 'GET', path, true );
       req.responseType = 'arraybuffer';
 
-      if(req.status == 200) {
-        console.log('status 200');
-      }
-
       req.onload = function () {
-        console.log(req.response + ' || ' + this.status);
         if ( _this.context.decodeAudioData ) {
           console.log('audio data decoded');
           _this.context.decodeAudioData( req.response, function( buffer ) {
@@ -56,8 +53,14 @@
         }
       };
 
+      req.onreadystatechange = function(e) {
+        console.log(this.readyState);
+        console.log(this.status);
+      };
+
       req.onerror = function(e) {
-        console.log("Une erreur " + e.target.status + " s'est produite au cours de la réception du document.");
+        console.log(e);
+        console.log(e.target.status +' || '+ e.target.statusText);
       };
 
       req.send();
