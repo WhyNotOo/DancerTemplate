@@ -34,6 +34,7 @@
       req.responseType = 'arraybuffer';
 
       req.onload = function () {
+        console.log(this.response);
         if ( _this.context.decodeAudioData ) {
           console.log('audio data decoded');
           _this.context.decodeAudioData( req.response, function( buffer ) {
@@ -59,8 +60,8 @@
       };
 
       req.onerror = function(e) {
+        console.log('error : '+e.target.status +' || '+ e.target.statusText);
         console.log(e);
-        console.log(e.target.status +' || '+ e.target.statusText);
       };
 
       req.send();
