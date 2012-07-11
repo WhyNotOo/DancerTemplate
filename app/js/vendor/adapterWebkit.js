@@ -29,7 +29,7 @@
         req = new XMLHttpRequest(),
         _this = this;
 
-      req.open( 'GET', path, true );
+      req.open( 'GET', 'http://storage1.newjamendo.com/tracks/318689_96.mp3', true );
       req.responseType = 'arraybuffer';
 
       req.onload = function () {
