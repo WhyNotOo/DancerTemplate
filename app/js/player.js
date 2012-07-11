@@ -3,8 +3,7 @@
   var
     options           = Joshfire.factory.config.template.options || {},
     songs             = Joshfire.factory.getDataSource("songs"),
-    PATH_TO_FILES     = 'songs/',
-    AUDIO_FILE        = ['song', 'song2'],
+    AUDIO_FILES       = new Object(),
     PARTICLE_COUNT    = options.particules,
     MAX_PARTICLE_SIZE = 12,
     MIN_PARTICLE_SIZE = 2,
@@ -26,36 +25,6 @@
     flashJS  : 'js/vendors/soundmanager2.js'
   });
 
-  songs.find({}, function (err, data) {
-    if(err) {
-      console.log('erreur : '+err);
-    } else {
-        //var song = data;
-
-        console.log(data);
-
-        // $('header h1').html(app.scores.children[0].name);
-
-        // $('#content .content').prepend(userTable);
-
-        // if(app.options.entriesrange && app.options.entriesrange < user.length) {
-        //   for(var i=0, len = app.options.entriesrange; i<len; i++) {
-        //     var date = app.getScoreDate(user.dateCreated);
-        //     $('#content .content .table').append('<tr><td>'+(i+1)+'</td><td>'+user[i].familyName+'</td><td>'+user[i].givenName+'</td><td>'+user[i].nationality.name+'</td><td>'+date+'</td><td class="score">'+user[i]['quiz:score']+'</td></tr>');
-        //   }
-        // } else {
-        //   for(var i=0, len = user.length; i<len; i++) {
-        //     var date = app.getScoreDate(user[i].dateCreated);
-        //     $('#content .content .table').append('<tr><td>'+(i+1)+'</td><td>'+user[i].familyName+'</td><td>'+user[i].givenName+'</td><td>'+user[i].nationality.name+'</td><td>'+date+'</td><td class="score">'+user[i]['quiz:score']+'</td></tr>');
-        //   }
-        // }
-    }
-  });
-
-
-  /*
-   * Three.js Setup
-   */
 
   function on () {
     for ( var i = PARTICLE_COUNT; i--; ) {
@@ -88,8 +57,6 @@
       beamGroup.add( beam );
     }
 
-    makePlaylist();
-
     for (var i = 0, len = playlist.length; i < len; i++) {
       playlist[i].addEventListener( 'click', function (e) {
         e.preventDefault();
@@ -99,12 +66,29 @@
         document.getElementById('loader').style.display = 'block';
 
         var song = e.target.dataset.song;
-
         createSong(song);
       }, false );
     }
 
-    createSong(0);
+    /*
+     * Joshfire Get songs
+     */
+
+    songs.find({ limit: 20 }, function (err, data) {
+      if(err) {
+        console.log('erreur : '+err);
+      } else {
+        for (var i = 0, len = data.entries[0].entries.length; i < len; i++) {
+          var song = 'song'+i;
+          AUDIO_FILES[song] = {
+            'name'  : data.entries[0].entries[i].name,
+            'url'   : data.entries[0].entries[i].audio.contentURL
+          }
+        }
+        makePlaylist();
+        createSong('song0');
+      }
+    });
   }
 
   function decay () {
@@ -148,7 +132,7 @@
 
   function createSong (song) {
     dancer = '';
-    dancer = new Dancer( PATH_TO_FILES + AUDIO_FILE[song], [ 'mp3' ] );
+    dancer = new Dancer( AUDIO_FILES[song].url, [ 'mp3' ] );
 
     beat = dancer.createBeat({
       onBeat: function () {
@@ -190,10 +174,11 @@
   }
 
   function makePlaylist () {
-    for (var i = 0, len = AUDIO_FILE.length; i < len; i++) {
+    for (var i = 0, len = AUDIO_FILES.length; i < len; i++) {
       var song = document.createElement('li'),
-          playlist = document.getElementById('list');
-      song.innerHTML = '<a href="#" title="'+AUDIO_FILE[i]+'" data-song="'+i+'">'+AUDIO_FILE[i]+'</a>';
+          playlist = document.getElementById('list'),
+          songID = 'song'+i;
+      song.innerHTML = '<a href="#" title="'+AUDIO_FILES[songID].name+'" data-song="'+songID+'">'+AUDIO_FILES[songID].name+'</a>';
       playlist.appendChild(song);
     }
   }
@@ -212,7 +197,7 @@
       alert( 'Your browser does not currently support either Web Audio API or Audio Data API. The audio may play, but the visualizers will not move to the music; check out the latest Chrome or Firefox browsers!' );
     }
 
-    document.getElementById('songname').innerHTML = AUDIO_FILE[song];
+    document.getElementById('songname').innerHTML = AUDIO_FILES[song];
     document.getElementById('loader').style.display = 'none';
     dancer.play();
   }

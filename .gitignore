@@ -1,1 +1,5 @@
+# Remove some files form the repo
+
 .sass-cache/
+dancer.sublime-project
+dancer.sublime-workspace
