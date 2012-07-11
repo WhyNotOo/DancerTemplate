@@ -24,6 +24,7 @@
   adapter.prototype = {
 
     load : function ( path ) {
+      console.log('load launched path : '+path);
       var
         req = new XMLHttpRequest(),
         _this = this;
@@ -32,7 +33,9 @@
       req.responseType = 'arraybuffer';
 
       req.onload = function () {
+        console.log(req.response + ' || ' + this.status);
         if ( _this.context.decodeAudioData ) {
+          console.log('audio data decoded');
           _this.context.decodeAudioData( req.response, function( buffer ) {
             _this.buffer = buffer;
             connectContext.call( _this );
@@ -42,6 +45,7 @@
             console.log( e );
           });
         } else {
+          console.log('no audio data');
           _this.buffer = _this.context.createBuffer( req.response, false );
           connectContext.call( _this );
           _this.isLoaded = true;

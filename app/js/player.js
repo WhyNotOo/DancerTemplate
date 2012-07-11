@@ -57,19 +57,6 @@
       beamGroup.add( beam );
     }
 
-    for (var i = 0, len = playlist.length; i < len; i++) {
-      playlist[i].addEventListener( 'click', function (e) {
-        e.preventDefault();
-        dancer.stop();
-        beat.off();
-
-        document.getElementById('loader').style.display = 'block';
-
-        var song = e.target.dataset.song;
-        createSong(song);
-      }, false );
-    }
-
     /*
      * Joshfire Get songs
      */
@@ -84,11 +71,25 @@
             'name'  : data.entries[0].entries[i].name,
             'url'   : data.entries[0].entries[i].audio.contentURL
           }
+          AUDIO_FILES['length'] = i;
         }
         makePlaylist();
         createSong('song0');
       }
     });
+
+    for (var i = 0, len = playlist.length; i < len; i++) {
+      playlist[i].addEventListener( 'click', function (e) {
+        e.preventDefault();
+        dancer.stop();
+        beat.off();
+
+        document.getElementById('loader').style.display = 'block';
+
+        var song = e.target.dataset.song;
+        createSong(song);
+      }, false );
+    }
   }
 
   function decay () {
@@ -174,7 +175,7 @@
   }
 
   function makePlaylist () {
-    for (var i = 0, len = AUDIO_FILES.length; i < len; i++) {
+    for (var i = 0, len = AUDIO_FILES['length']; i < len; i++) {
       var song = document.createElement('li'),
           playlist = document.getElementById('list'),
           songID = 'song'+i;
