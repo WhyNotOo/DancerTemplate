@@ -132,7 +132,7 @@
 
   function createSong (song) {
     dancer = '';
-    dancer = new Dancer( AUDIO_FILES[song].url, [ 'mp3' ] );
+    dancer = new Dancer( AUDIO_FILES[song].url );
 
     beat = dancer.createBeat({
       onBeat: function () {
