@@ -24,13 +24,16 @@
   adapter.prototype = {
 
     load : function ( path ) {
-      console.log('load launched path : '+path);
       var
         req = new XMLHttpRequest(),
         _this = this;
 
       req.open( 'GET', 'http://storage1.newjamendo.com/tracks/318689_96.mp3', true );
       req.responseType = 'arraybuffer';
+
+      if(req.status == 200) {
+        console.log('status 200');
+      }
 
       req.onload = function () {
         console.log(req.response + ' || ' + this.status);
@@ -52,6 +55,11 @@
           _this.dancer.trigger( 'loaded' );
         }
       };
+
+      req.onerror = function(e) {
+        console.log("Une erreur " + e.target.status + " s'est produite au cours de la réception du document.");
+      };
+
       req.send();
 
       this.proc = this.context.createJavaScriptNode( SAMPLE_SIZE / 2, 1, 1 );
